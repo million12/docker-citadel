@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+  environment:
+    PASSWORD: MyPass
+    DOMAIN: test.example.org
+    ROOT_PASS: rootPass
+    ATOM_SUPPORT: true
+
+dependencies:
+  pre:
+    - docker pull million12/ssh
+  post:
+    - docker build -t million12/citadel .
+
+test:
+  override:
+    - docker run -d -h $DOMAIN --name citadel --dns 8.8.8.8 -p 80:80 -p 10022:22 --env="PASSWORD=$PASSWORD" --env="DOMAIN=$DOMAIN" --env="ATOM_SUPPORT=$ATOM_SUPPORT" million12/citadel
+    - docker logs -f citadel | tee -a ${CIRCLE_ARTIFACTS}/citadel.log:
+        background: true
+    - while true; do if grep "sshd entered RUNNING state" -a ${CIRCLE_ARTIFACTS}/citadel.log; then break; else sleep 1; fi done
+    # Check Citadel Web interface status
+    - curl -s -L --head http://127.0.0.1/ | grep "HTTP/1.1 200 OK"

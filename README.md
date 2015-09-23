@@ -1,4 +1,5 @@
 ### Citadel Server in Docker  
+[![Circle CI](https://circleci.com/gh/million12/docker-citadel/tree/master.svg?style=svg&circle-token=aac9a2809e0abdd64657d1d0f655997d017617f2)](https://circleci.com/gh/million12/docker-citadel/tree/master)  
 [Docker image](https://hub.docker.com/r/million12/citadel) with [Citadel](http://www.citadel.org/doku.php) email server using CentOS-7 and supervisor. It's based on [million12/ssh](https://hub.docker.com/r/million12/ssh/) docker image with `ssh` deamon. This image comes with WebCit web interface installed and set to listen on port 80.
 
 > Citadel is easy, versatile, and powerful, thanks to its exclusive "rooms" based architecture. No other platform seamlessly combines so many different features using this familiar and consistent metaphor.  
