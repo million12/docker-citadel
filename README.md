@@ -1,5 +1,5 @@
 ### Citadel Server in Docker  
-[Docker image](https://hub.docker.com/r/million12/citadel) with [Citadel](http://www.citadel.org/doku.php) email server using CentOS-7 and supervisor. It's based on [million12/ssh](https://hub.docker.com/r/million12/ssh/) docker image with `ssh` deamon.
+[Docker image](https://hub.docker.com/r/million12/citadel) with [Citadel](http://www.citadel.org/doku.php) email server using CentOS-7 and supervisor. It's based on [million12/ssh](https://hub.docker.com/r/million12/ssh/) docker image with `ssh` deamon. This image comes with WebCit web interface installed and set to listen on port 80.
 
 > Citadel is easy, versatile, and powerful, thanks to its exclusive "rooms" based architecture. No other platform seamlessly combines so many different features using this familiar and consistent metaphor.  
 
@@ -9,7 +9,7 @@ Example `docker run` command:
     docker run \
       -d \
       -h mail.example.org \
-      --name mail-server \
+      --name citadel \
       --dns 8.8.8.8 \
       -p 25:25 \
       -p 110:110 \
@@ -21,7 +21,7 @@ Example `docker run` command:
       --env="PASSWORD=mypassword" \
       --env="DOMAIN=example.org" \
       --env="ATOM_SUPPORT=true" \
-      polinux/citadel
+      million12/citadel
 
 ### Environmental Variables
 In this Image you can use environmental variables to define domain name, admin password, atom editor support and root ssh password.
@@ -30,6 +30,12 @@ In this Image you can use environmental variables to define domain name, admin p
 `PASSWORD` = admin@example.org username password for logging to web interface  
 `DOMAIN` = user specified domain name  
 `ATOM_SUPPORT` = remote atom support for all of us who are using atom editor (disabled by default)
+
+### Web Access
+Go to `http://docker_container_address/`.  
+
+Username `admin`  
+Password `Password specified on docker run.`
 
 ### Docker troubleshooting
 
@@ -40,25 +46,25 @@ Use docker command to see if all required containers are up and running:
 
 Check online logs of ssh container:
 
-    $ docker logs ssh
+    $ docker logs citadel
 
 Attach to running ssh container (to detach the tty without exiting the shell,
 use the escape sequence Ctrl+p + Ctrl+q):
 
-    $ docker attach ssh
+    $ docker attach citadel
 
 Sometimes you might just want to review how things are deployed inside a running container, you can do this by executing a _bash shell_ through _docker's exec_ command:
 
-    docker exec -i -t ssh /bin/bash
+    docker exec -i -t citadel /bin/bash
 
 History of an image and size of layers:
 
-    docker history --no-trunc=true million12/ssh | tr -s ' ' | tail -n+2 | awk -F " ago " '{print $2}'
+    docker history --no-trunc=true million12/citadel | tr -s ' ' | tail -n+2 | awk -F " ago " '{print $2}'
 
 ---
 ## Author
 
-Author: Przemyslaw Ozgo (<linux@ozgo.info>)
+Author: Przemyslaw Ozgo [linux@ozgo.info](mailto:linux@ozgo.info)
 
 ---
 
