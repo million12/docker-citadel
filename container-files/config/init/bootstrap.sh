@@ -19,10 +19,13 @@ log() {
 }
 
 update_configurations() {
+  mkdir -p /etc/named/
+  cp /config/named/default-named.conf /etc/named/named.conf
+  cp /config/named/default-zone.conf /etc/named/zone.conf
   ZONE_CONFIG="/etc/named/zone.conf"
-  OPTIONS_CONFIG="/etc/named/options.conf"
+  NAMED_CONFIG="/etc/named/named.conf"
   log "Updating ${bold}${white}DNS${reset} config."
-  sed -i "s|\$DOMAIN|"${DOMAIN}"|g" ${OPTIONS_CONFIG}
+  sed -i "s|\$DOMAIN|"${DOMAIN}"|g" ${NAMED_CONFIG}
   sed -i "s|\$DOMAIN|"${DOMAIN}"|g" ${ZONE_CONFIG}
   sed -i "s|\$CONTAINERIP|"${CONTAINERIP}"|g" ${ZONE_CONFIG}
   log "${bold}${white}DNS${reset} config updated."
@@ -31,9 +34,8 @@ update_configurations() {
 }
 
 dns_start() {
-  mv -f /etc/named/options.conf /etc/named.conf
   log "Startting ${bold}${white}DNS Server${reset}"
-  named -c /etc/named.conf
+  named -c /etc/named/named.conf
   log "${bold}${white}DNS Server${reset} started."
 }
 
