@@ -50,7 +50,7 @@ atom_support() {
 citadel_start() {
   citserver -d
   citadel-setup < /userdata-keystrokes
-  webcit -p 80 -d
+  webcit -p 8080 -d
 }
 
 ### Magic starts here

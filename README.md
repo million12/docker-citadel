@@ -15,10 +15,13 @@ Example `docker run` command:
       -p 25:25 \
       -p 110:110 \
       -p 143:143 \
+      -p 465:465 \
       -p 587:587 \
+      -p 993:993 \
       -p 995:995 \
-      -p 80:80 \
+      -p 80:8080 \
       -p 10022:22 \
+      --env="ROOT_PASS=myrootpassword" \
       --env="PASSWORD=mypassword" \
       --env="DOMAIN=example.org" \
       --env="ATOM_SUPPORT=true" \
