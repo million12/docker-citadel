@@ -42,7 +42,7 @@ dns_start() {
 atom_support() {
   if [[ ${ATOM_SUPPORT} == "true" ]]; then
     log "Atom editor support being installed."
-    curl -o /usr/local/bin/rmate https://raw.githubusercontent.com/aurora/rmate/master/rmate
+    mv /rmate /usr/local/bin/rmate
     chmod +x /usr/local/bin/rmate && \
     mv /usr/local/bin/rmate /usr/local/bin/atom
     log "Atom editor support added."

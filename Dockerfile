@@ -10,7 +10,7 @@ RUN \
   wget http://download.opensuse.org/repositories/home:homueller:citadel/CentOS_7/home:homueller:citadel.repo && \
   rpm --rebuilddb && yum clean all && \
   yum install -y deltarpm && \
-  yum install -y bind citadel webcit && \
+  yum install -y bind citadel webcit net-tools && \
   yum clean all
 
 ADD container-files/ /
